@@ -1,0 +1,15 @@
+.bg-height {
+    background-size:     contain;                
+    background-repeat:   no-repeat;
+    background-position: top center;   
+    height: auto;
+    padding-top: -200px;
+}
+
+@media (max-width: 768px) {
+    .bg-height {
+        background-size: contain;
+        background-repeat:   repeat;
+        height: auto;
+    }
+}

@@ -12,6 +12,7 @@ import Register from './components/signinup';
 import Login from './components/login';
 import PrivateRoute from'./components/private-route/PrivateRoute';
 import Dashboard from './screens/dashboard';
+import Home from './screens/home/home';
 
 if (localStorage.jwtToken) {
   const token = localStorage.jwtToken;
@@ -30,10 +31,10 @@ function App() {
   return (
     <Provider store={store}>
       <Router>
-        <div>
+        <div class="bg-color-bg">
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
-
+          <Route exact path="/" component={Home} />
           <Switch>
             <PrivateRoute exact path="/dashboard" component={Dashboard} />
           </Switch>
