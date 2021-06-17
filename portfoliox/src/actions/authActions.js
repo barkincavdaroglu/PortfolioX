@@ -10,7 +10,7 @@ import {
 // Register User
 export const registerUser = (userData) => dispatch => {
   axios
-    .post("http://localhost:5000/users/register", {username: 'test210', name: userData.name, email: userData.email, password: userData.password })
+    .post("http://localhost:5000/users/register", {username: userData.username, name: userData.name, email: userData.email, password: userData.password })
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
@@ -22,7 +22,7 @@ export const registerUser = (userData) => dispatch => {
 // Login - get user token
 export const loginUser = userData => dispatch => {
   axios
-    .post("/users/login", userData)
+    .post("http://localhost:5000/users/login", userData)
     .then(res => {
       // Save to localStorage
       // Set token to localStorage

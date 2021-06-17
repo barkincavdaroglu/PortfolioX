@@ -1,9 +1,8 @@
 .bg-height {
-    background-size:     contain;                
+    background-size:     cover;                
     background-repeat:   no-repeat;
     background-position: top center;   
-    height: auto;
-    padding-top: -200px;
+    background-attachment: fixed;
 }
 
 @media (max-width: 768px) {

@@ -1,8 +1,9 @@
 .dashboard-bg {
-    background: rgba(240, 241, 247, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    background: rgb(245, 245, 250);
+    border: 1px solid rgba(255, 255, 255, 0.61);
     box-sizing: border-box;
-    -webkit-backdrop-filter: blur(100px);
+    -webkit-backdrop-filter: blur(140px);
+    backdrop-filter: blur(140px);
     border-radius: 14px;
     padding: 40px;
 }

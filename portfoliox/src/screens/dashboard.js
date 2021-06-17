@@ -1,18 +1,10 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { logoutUser } from "../actions/authActions";
+import Home from "./home/home";
 
 function Dashboard() {
-    const User = useSelector(state => state.auth);
-    const dispatch = useDispatch();
-
-    const onLogOut = e => {
-        e.preventDefault();
-        dispatch(logoutUser());
-    }
     return (
         <div>
-            <button onClick={onLogOut}>LOG OUT</button>
+            <Home />
         </div>
     )
 }
