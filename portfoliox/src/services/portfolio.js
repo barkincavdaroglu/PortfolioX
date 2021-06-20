@@ -4,10 +4,7 @@ import { API_URL } from '../lib/constants';
 const URL = `${API_URL}`
 
 export const createPortfolio = async (name, owner, slug) => {
-    const data = await axios.post(URL + '/api/portfolios/create-portfolio/', {'owner': owner, 'slug': slug, 'name': name}).catch(function(err) {
-        console.log("ERROR ", err.response.data.error)
-        return err.response.data
-    });
+    const data = await axios.post(URL + '/api/portfolios/create-portfolio/', {'owner': owner, 'slug': slug, 'name': name})
     return data;
 };
 

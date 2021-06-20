@@ -1,6 +1,5 @@
 import { combineReducers } from "redux";
 import authReducer from "./authReducers";
-import errorReducer from "./errorReducers";
 import portfolioReducer from './portfolioReducers';
 import topStocksReducer from './topStockReducers';
 import newsReducer from "./newsReducers";
@@ -13,6 +12,5 @@ export default combineReducers({
   news: newsReducer,
   watchlist: watchlistReducer,
   topStocks: topStocksReducer,
-  errors: errorReducer,
   search: searchReducer,
 });

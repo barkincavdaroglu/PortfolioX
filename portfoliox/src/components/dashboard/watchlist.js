@@ -4,6 +4,16 @@ import { ArrowNarrowLeftIcon, ArrowNarrowRightIcon } from '@heroicons/react/soli
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getWatchlistAction, addToWatchlistAction, deleteWatchlistAction } from '../../actions/watchlist';
+import { searchTickerAction } from '../../actions/portfolio';
+
+import { css } from "@emotion/react";
+import PulseLoader from "react-spinners/PulseLoader";
+
+const override = css`
+  display: block;
+  margin: 0 auto;
+  border-color: red;
+`;
 
 export default function WatchList() {
     const dispatch = useDispatch();
@@ -13,6 +23,12 @@ export default function WatchList() {
     const [createNew, setCreateNew] = useState(false)
     const [paginatedWatchlist, setPaginatedWatchlist] = useState([]);
     const [ticker, setTicker] = useState('');
+
+    const searchResults = useSelector(state => state.search)
+    const [tickerDropdownOpen, setTickerDropdownOpen] = useState(false)
+
+    const loading = useSelector(state => state.watchlist.watchlistActionsLoading);
+
   
     useEffect(() => {
         function getWatchlist() {
@@ -59,7 +75,7 @@ export default function WatchList() {
     const createState = () => {
         if (createNew) {
             return (
-                <div className="">
+                <div className="h-auto">
                     <div className="py-2 bg-white overflow-hidden rounded-lg">
                         <div className="grid grid-cols-add2 py-2 sm:px-6">
                             <div>
@@ -68,7 +84,7 @@ export default function WatchList() {
                                     name="ticker"
                                     id="ticker"
                                     value={ticker}
-                                    onChange={(e) => {setTicker(e.target.value)}}
+                                    onChange={(e) => {searchForTicker(e.target.value)}}
                                     placeholder="Stock's Name"
                                     className="block p-2 w-11/12 pr-2 focus:ring-indigo-500 focus:border-indigo-500 min-w-0 rounded-lg sm:text-lg border-white"
                                 />
@@ -82,16 +98,59 @@ export default function WatchList() {
                                     <XIcon className={"mr-3 h-5 w-5 text-gray-300"} aria-hidden="true" />
                                 </button>
                             </div>
+                            
                         </div>
+                        <div className="sm:px-6">
+                            {StockDropdown()}    
+                        </div>
+                        
                     </div>
+                    
                 </div>
             )
         } else {
             return (
-                <div className=" flex justify-center items-center overflow-hidden rounded-lg border p-6">
+                <div className="flex justify-center items-center overflow-hidden rounded-lg border p-6">
                     <span onClick={() => setCreateNew(!createNew)} className="font-normal text-lg text-gray-400">
                         Add to Watchlist
                     </span>
+                </div>
+            )
+        }
+    }
+
+    function searchForTicker(tickerToSearch) {
+        setTicker(tickerToSearch)
+        setTickerDropdownOpen(true)
+        dispatch(searchTickerAction(tickerToSearch))
+    }
+
+    function closeDropdown(stock) {
+        setTickerDropdownOpen(false)
+        setTicker(stock)
+    }
+
+    function StockDropdown() {
+        if (!searchResults.loading && tickerDropdownOpen && ticker !== '') {
+            return (
+                <div className="border-2 border-indigo-500 mt-2 max-h-48 w-full rounded-xl shadow-lg divide-y divide-indigo-200 divide-dashed bg-white overflow-auto z-100">
+                    {searchResults.searchResults.map((stock) => (
+                      <div onClick={() => closeDropdown(stock)} key={stock} className="p-2 z-100"> 
+                          <p className="text-md font-normal text-gray-500">
+                              {stock}
+                          </p>
+                      </div>  
+                    ))}
+                </div>
+            )             
+        }      
+    }
+
+    function loaderOverlay() {
+        if (loading) {
+            return (
+                <div className="absolute inset-0 h-full w-full flex justify-center items-center z-50 bg-white opacity-50">
+                    <PulseLoader color={'#754fff'} loading={(loading)} css={override} size={20} />
                 </div>
             )
         }
@@ -118,7 +177,7 @@ export default function WatchList() {
                 </div>
             </div>
 
-            <div className="bg-white overflow-hidden shadow-soft rounded-xl divide-y divide-gray-200">
+            <div className="z-10 relative bg-white overflow-hidden shadow-soft rounded-xl divide-y divide-gray-200">
                 <ul className="divide-y divide-gray-200">
                     {paginatedWatchlist.map((item) => (
                         <div key={item.ticker} className="grid grid-cols-watchlist">
@@ -155,6 +214,7 @@ export default function WatchList() {
 
                     ))}
                 </ul>
+                {loaderOverlay()}
                 {createState()}
             </div>
         </div>

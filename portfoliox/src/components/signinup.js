@@ -17,7 +17,7 @@ function Register() {
   const [confirmPassword, setConfirmedPassword] = useState('');
   const isRegisterError = useSelector(state => state.auth.isRegisterError)
   const registerErrorMessage = useSelector(state => state.auth.registerError)
-
+  const [passwordMatch, setPasswordMatch] = useState(true)
   if (User.isAuthenticated) {
       return <Redirect to='/dashboard' />
   }
@@ -30,7 +30,10 @@ function Register() {
           password: password
       }
       if (name && email && password && (password === confirmPassword)) {
-          dispatch(registerUserAction(User))
+        setPasswordMatch(true)
+        dispatch(registerUserAction(User))
+      } else {
+        setPasswordMatch(false)
       }
   }
 
@@ -53,6 +56,16 @@ function Register() {
                 </div>
             </div>
         )
+    }
+  }
+
+  function passwordMatchError() {
+    if (!passwordMatch) {
+      return (
+        <div>
+          <h1 className="text-sm font-medium text-red-500">Passwords must match.</h1>
+        </div>
+      )
     }
   }
 
@@ -124,7 +137,7 @@ function Register() {
                     onChange={(e) => {setPassword(e.target.value)}}
                     autoComplete="current-password"
                     required
-                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className={passwordMatch ? "appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" : "appearance-none block w-full px-3 py-2 border-2 border-red-500 rounded-md shadow-sm placeholder-gray-400 sm:text-sm"}
                   />
                 </div>
               </div>
@@ -142,12 +155,12 @@ function Register() {
                     onChange={(e) => {setConfirmedPassword(e.target.value)}}
                     autoComplete="current-password"
                     required
-                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className={passwordMatch ? "appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" : "appearance-none block w-full px-3 py-2 border-2 border-red-500 rounded-md shadow-sm placeholder-gray-400 sm:text-sm"}
                   />
                 </div>
               </div>
             </form>
-
+            {passwordMatchError()}
             <div className="pt-4">
                 <button
                   type="submit"
@@ -159,7 +172,7 @@ function Register() {
             </div>
 
             {errorState()}
-            
+
             <div className="flex items-center justify-center mt-4">
                 <div className="text-sm">
                   <button onClick={handleOnSubmitLogin} className="font-medium text-indigo-600 hover:text-indigo-500">

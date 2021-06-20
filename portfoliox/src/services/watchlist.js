@@ -15,6 +15,5 @@ export const getWatchlist = async (owner) => {
 
 export const deleteTickerFromWatchlist = async (owner, ticker) => {
     const { data } = await axios.post(URL + '/api/watchlist/delete-from-watchlist', {'ticker': ticker, 'owner': owner } );
-    console.log("IN DELETE WATCHLIST ACTION: ", data)
     return data;
 }

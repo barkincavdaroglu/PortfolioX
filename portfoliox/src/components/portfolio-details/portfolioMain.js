@@ -39,7 +39,6 @@ const PortfolioCard = () => {
     const [isError, setError] = useState(false)
     const searchResults = useSelector(state => state.search)
     const [tickerDropdownOpen, setTickerDropdownOpen] = useState(false)
-    //const [selected, setSelected] = useState('')
 
     let slug = useParams();
     
