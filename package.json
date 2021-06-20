@@ -45,7 +45,6 @@
     "test": "craco test",
     "eject": "react-scripts eject"
   },
-  "proxy": "https://xfolio-app.herokuapp.com/",
   "eslintConfig": {
     "extends": [
       "react-app",
