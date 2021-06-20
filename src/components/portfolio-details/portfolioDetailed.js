@@ -1,6 +1,6 @@
 import Navbar from '../../components/header';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import '../../components/styles.css';
 import NewsPanel from '../dashboard/news';
@@ -33,24 +33,14 @@ export default function PortfolioDetailed(props) {
 
     let slug = useParams();
     let history = useHistory();
-
-    var [firstTime, setFirst] = useState(true)
-
+    
+    function getPortfolioByName() {
+        dispatch(getNewsAction());
+        dispatch(getPortfolioByNameAction(owner, slug.name))
+    }
     useEffect(() => {
-        function getPortfolioByName() {
-            dispatch(getNewsAction());
-            dispatch(getPortfolioByNameAction(owner, slug.name))
-        }
-        if (firstTime) {
-            getPortfolioByName();
-            setFirst(false)
-        } else {
-            setInterval(() => {
-                getPortfolioByName();
-                console.log(firstTime)
-              }, 720000); //720000
-        }
-    }, [firstTime]); // eslint-disable-line react-hooks/exhaustive-deps
+        getPortfolioByName();
+    }, []); 
 
     if (!loading && !newsLoading) {
         return (
