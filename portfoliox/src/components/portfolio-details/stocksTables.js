@@ -238,8 +238,8 @@ export default function StocksTable() {
                     ))}
                   </tbody>
                 </table>
-                
               </div>
+              <p className="pt-4 text-xs text-gray-400 font-light">Note that the API this app uses may return wrong and/or incomplete data—such as previous close price and historical prices—for some stocks, which in turn may cause irregularities in updating portfolio statistics and the charts. If you suspect this may be the case, removing the stock from your portfolio will trigger an update of portfolio statistics. </p>
             </div>
           </div>
         </div>        

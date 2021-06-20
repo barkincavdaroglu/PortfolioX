@@ -4342,6 +4342,31 @@
   "resolved" "https://registry.npmjs.org/csstype/-/csstype-3.0.8.tgz"
   "version" "3.0.8"
 
+"csv-generate@^3.4.0":
+  "integrity" "sha512-D6yi7c6lL70cpTx3TQIVWKrfxuLiKa0pBizu0zi7fSRXlhmE7u674gk9k1IjCEnxKq2t6xzbXnxcOmSdBbE8vQ=="
+  "resolved" "https://registry.npmjs.org/csv-generate/-/csv-generate-3.4.0.tgz"
+  "version" "3.4.0"
+
+"csv-parse@^4.15.3":
+  "integrity" "sha512-Zb4tGPANH4SW0LgC9+s9Mnequs9aqn7N3/pCqNbVjs2XhEF6yWNU2Vm4OGl1v2Go9nw8rXt87Cm2QN/o6Vpqgg=="
+  "resolved" "https://registry.npmjs.org/csv-parse/-/csv-parse-4.16.0.tgz"
+  "version" "4.16.0"
+
+"csv-stringify@^5.6.2":
+  "integrity" "sha512-n3rIVbX6ylm1YsX2NEug9IaPV8xRnT+9/NNZbrA/bcHgOSSeqtWla6XnI/xmyu57wIw+ASCAoX1oM6EZtqJV0A=="
+  "resolved" "https://registry.npmjs.org/csv-stringify/-/csv-stringify-5.6.2.tgz"
+  "version" "5.6.2"
+
+"csv@^5.5.0":
+  "integrity" "sha512-32tcuxdb4HW3zbk8NBcVQb8/7xuJB5sv+q4BuQ6++E/K6JvHvWoCHcGzB5Au95vVikNH4ztE0XNC/Bws950cfA=="
+  "resolved" "https://registry.npmjs.org/csv/-/csv-5.5.0.tgz"
+  "version" "5.5.0"
+  dependencies:
+    "csv-generate" "^3.4.0"
+    "csv-parse" "^4.15.3"
+    "csv-stringify" "^5.6.2"
+    "stream-transform" "^2.1.0"
+
 "cyclist@^1.0.1":
   "integrity" "sha1-WW6WmP0MgOEgOMK4LW6xs1tiJNk="
   "resolved" "https://registry.npmjs.org/cyclist/-/cyclist-1.0.1.tgz"
@@ -8261,6 +8286,11 @@
     "for-in" "^1.0.2"
     "is-extendable" "^1.0.1"
 
+"mixme@^0.5.0":
+  "integrity" "sha512-NaeZIckeBFT7i0XBEpGyFcAE0/bLcQ9MHErTpnU3bLWVE5WZbxG5Y3fDsMxYGifTo5khDA42OquXCC2ngKJB+g=="
+  "resolved" "https://registry.npmjs.org/mixme/-/mixme-0.5.1.tgz"
+  "version" "0.5.1"
+
 "mkdirp@^0.5.1", "mkdirp@^0.5.3", "mkdirp@^0.5.4", "mkdirp@^0.5.5", "mkdirp@~0.5.1":
   "integrity" "sha512-NKmAlESf6jMGym1++R0Ra7wvhV+wFW63FaSOFPwRahvea0gMUcGUhVeAg/0BC0wiv9ih5NYPB1Wn1UEI1/L+xQ=="
   "resolved" "https://registry.npmjs.org/mkdirp/-/mkdirp-0.5.5.tgz"
@@ -11648,6 +11678,13 @@
   "integrity" "sha512-AiisoFqQ0vbGcZgQPY1cdP2I76glaVA/RauYR4G4thNFgkTqr90yXTo4LYX60Jl+sIlPNHHdGSwo01AvbKUSVQ=="
   "resolved" "https://registry.npmjs.org/stream-shift/-/stream-shift-1.0.1.tgz"
   "version" "1.0.1"
+
+"stream-transform@^2.1.0":
+  "integrity" "sha512-bwQO+75rzQbug7e5OOHnOR3FgbJ0fCjHmDIdynkwUaFzleBXugGmv2dx3sX3aIHUQRLjrcisRPgN9BWl63uGgw=="
+  "resolved" "https://registry.npmjs.org/stream-transform/-/stream-transform-2.1.0.tgz"
+  "version" "2.1.0"
+  dependencies:
+    "mixme" "^0.5.0"
 
 "strict-uri-encode@^1.0.0":
   "integrity" "sha1-J5siXfHVgrH1TmWt3UNS4Y+qBxM="

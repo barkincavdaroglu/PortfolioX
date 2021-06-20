@@ -54,7 +54,7 @@ export default function PortfolioDetailed(props) {
 
     if (!loading && !newsLoading) {
         return (
-            <div className="pb-20 bg-color-bg bg-height bg-dashboard-mobile md:bg-dashboard bg-height">
+            <div className="bg-color-bg bg-height h-screen md:bg-dashboard">
                 <Navbar />
                 <div className="dashboard-bg mt-12 max-w-8xl mx-auto sm:px-6 lg:px-8">
                     <div className="flex flex-row pb-4">

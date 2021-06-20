@@ -10,6 +10,7 @@ import { getPortfoliosAction } from '../../actions/portfolio';
 import { getTopStocksAction } from '../../actions/topStocks';
 import { css } from "@emotion/react";
 import PulseLoader from "react-spinners/PulseLoader";
+import Navbar from '../../components/header';
 
 const override = css`
   display: block;
@@ -45,14 +46,18 @@ export default function Panel() {
     
     if (!newsLoading && !portfsLoading && !topStocksLoading) {
         return (
-            <div className="dashboard-bg mt-12 max-w-8xl mx-auto sm:px-6 lg:px-8">
-                <PanelTop />
-                <div className="grid lg:grid-cols-dashboard">
-                    <PanelPortfolios />
-                    <WatchList />
-                    <NewsPanel/>
-                </div>
+            <div className="bg-color-bg bg-height md:bg-dashboard pb-20">
+                <Navbar />
+                <div className="dashboard-bg mt-6 max-w-8xl mx-auto sm:px-6 lg:px-8">
+                    <PanelTop />
+                    <div className="grid lg:grid-cols-dashboard">
+                        <PanelPortfolios />
+                        <WatchList />
+                        <NewsPanel/>
+                    </div>
+                </div>                
             </div>
+
         )
     } else {
         return (

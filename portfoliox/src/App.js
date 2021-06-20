@@ -13,6 +13,7 @@ import Login from './components/login';
 import PrivateRoute from'./components/private-route/PrivateRoute';
 import Dashboard from './screens/dashboard';
 import PortfolioDetailed from './components/portfolio-details/portfolioDetailed';
+import About from './screens/about/about';
 
 if (localStorage.jwtToken) {
   const token = localStorage.jwtToken;
@@ -34,7 +35,7 @@ function App() {
         <div className="bg-color-bg bg-height bg-dashboard-mobile md:bg-dashboard">
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
-          
+          <Route exact path="/about" component={About} />
           <Switch>
             <PrivateRoute exact path="/" component={Dashboard} />
             <PrivateRoute exact path="/dashboard" component={Dashboard} />

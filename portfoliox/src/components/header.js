@@ -34,13 +34,7 @@ export default function Navbar() {
                       href="#"
                       className="text-white hover:bg-gray-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                     >
-                      Team
-                    </a>
-                    <a
-                      href="#"
-                      className="text-white hover:bg-gray-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                    >
-                      Projects
+                      About
                     </a>
                   </div>
                 </div>

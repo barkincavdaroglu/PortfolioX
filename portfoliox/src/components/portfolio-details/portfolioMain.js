@@ -3,9 +3,18 @@ import { ArrowSmDownIcon, ArrowSmUpIcon } from '@heroicons/react/solid';
 import { useState } from 'react';
 import StocksTable from './stocksTables';
 import { PortfolioChart } from '../chart';
-import { addToPortfolioAction } from '../../actions/portfolio';
+import { addToPortfolioAction, searchTickerAction } from '../../actions/portfolio';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+
+import { css } from "@emotion/react";
+import PulseLoader from "react-spinners/PulseLoader";
+
+const override = css`
+  display: block;
+  margin: 0 auto;
+  border-color: red;
+`;
 
 export const PortfolioMain = ({portfolio}) => {
     return (
@@ -26,12 +35,17 @@ const PortfolioCard = () => {
     const [initialPrice, setInitialPrice] = useState('');
     const [chartInterval, setChartInterval] = useState('1month');
     const portfolio = useSelector(state => state.portfolios.currentPortfolio);
+    const loading = useSelector(state => state.portfolios.currentPortfolioActionsLoading);
     const [isError, setError] = useState(false)
+    const searchResults = useSelector(state => state.search)
+    const [tickerDropdownOpen, setTickerDropdownOpen] = useState(false)
+    //const [selected, setSelected] = useState('')
 
     let slug = useParams();
     
     var changeType1 = 'increase'
     var changeType2 = 'increase'
+
     if (portfolio.dailyGain.percent < 0) {
         changeType1 = 'decrease'
     }
@@ -42,6 +56,12 @@ const PortfolioCard = () => {
     function addSymbolEvent(e) {
         e.preventDefault()
         setAddSymbol(!addSymbol)
+    }
+
+    function searchForTicker(tickerToSearch) {
+        setTicker(tickerToSearch)
+        setTickerDropdownOpen(true)
+        dispatch(searchTickerAction(tickerToSearch))
     }
 
     function tryAddSymbol() {
@@ -88,22 +108,45 @@ const PortfolioCard = () => {
         }
     }
 
+    function closeDropdown(stock) {
+        setTickerDropdownOpen(false)
+        setTicker(stock)
+    }
+
+    function StockDropdown() {
+        if (!searchResults.loading && tickerDropdownOpen) {
+            return (
+                <div className="border-2 border-indigo-500 mt-2 max-h-48 w-full rounded-xl shadow-lg divide-y divide-indigo-200 divide-dashed bg-white overflow-auto z-50 absolute">
+                    {searchResults.searchResults.map((stock) => (
+                      <div onClick={() => closeDropdown(stock)} key={stock} className="p-2"> 
+                          <p className="text-md font-normal text-gray-500">
+                              {stock}
+                          </p>
+                      </div>  
+                    ))}
+                </div>
+            )             
+        }      
+    }
+
     function isAdding() {
         if (addSymbol) {
             return (
-                <div>
-                    <div className="flex flex-row gap-4 pb-4">
-                        <div>
+                <div className="pt-4">
+                    <div className="flex flex-row gap-4 pb-1">
+                        <div className="relative">
                             <label className="sr-only">Symbol</label>
                             <input
-                                value={ticker} onChange={(e) => {setTicker(e.target.value)}}
+                                value={ticker} onChange={(e) => {searchForTicker(e.target.value)}}
                                 type="text"
                                 name="email"
                                 autoComplete="off"
-                                className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                className=" focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                                 placeholder="Symbol"
                             />
+                            {StockDropdown()}
                         </div>
+                        
 
                         <div>
                             <label className="sr-only">Shares</label>
@@ -112,7 +155,7 @@ const PortfolioCard = () => {
                                 type="number"
                                 name="shares"
                                 autoComplete="off"
-                                className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                className=" focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                                 placeholder="Shares"
                             />
                         </div>
@@ -124,7 +167,7 @@ const PortfolioCard = () => {
                                 type="number"
                                 name="cost/share"
                                 autoComplete="off"
-                                className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                className=" focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                                 placeholder="Cost / Share"
                             />
                         </div>
@@ -165,9 +208,19 @@ const PortfolioCard = () => {
             )
         }
     }
+
+    function loaderOverlay() {
+        if (loading) {
+            return (
+                <div className="absolute inset-0 h-full w-full flex justify-center items-center z-50 bg-white opacity-50">
+                    <PulseLoader color={'#754fff'} loading={(loading)} css={override} size={20} />
+                </div>
+            )
+        }
+    }
     
     return (
-        <div className="bg-white overflow-hidden shadow-soft mt-2 rounded-xl mb-6">
+        <div className="z-10 relative bg-white overflow-hidden shadow-soft mt-2 rounded-xl mb-6">
             <div className="px-4 pt-5 pb-3 sm:px-6">
                 <h1 className="pt-2 font-bold text-gray-700 text-2xl">${portfolio.totalValue}</h1>
             </div>
@@ -231,18 +284,17 @@ const PortfolioCard = () => {
                         </div>
                     </div>
                     <div className="flex flex-col pl-8">
-
                         {chartModes()}
                     </div>
                 </div>
             </div>
-            <div className="px-4 pt-3 sm:px-6">
-                <div className="px-4 py-3 border rounded-xl border-gray-200">
+            <div className="relative px-4 pt-3 sm:px-6">
+                <div className="relative px-4 py-3 border rounded-xl border-gray-200">
                     <div onClick={(e) => addSymbolEvent(e)} className="z-10 flex flex-row items-center">
                         <PlusIcon className={addSymbol ? "h-5 w-5 text-indigo-400" : "h-5 w-5 text-gray-400"} />
                         <h2 className={addSymbol ? "pl-1 text-base font-medium text-indigo-400" : "pl-1 text-base font-normal text-gray-400"}>Add Symbol</h2>
                     </div>
-                    <div className="flex flex-row items-center pt-3 pb-1">
+                    <div className="flex flex-row items-center">
                         {isAdding()}
                     </div>
 
@@ -251,6 +303,7 @@ const PortfolioCard = () => {
             </div>
             
             <StocksTable stocks={portfolio.stocks}/>
+            {loaderOverlay()}
         </div>
     )
 }

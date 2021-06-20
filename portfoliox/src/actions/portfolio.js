@@ -1,5 +1,5 @@
 import * as portfolioService from '../services/portfolio';
-import { ADD_TO_PORTFOLIO, CREATE_PORTFOLIO, DELETE_FROM_PORTFOLIO, DELETE_PORTFOLIO, GET_PORTFOLIOS, GET_PORTFOLIO_BY_NAME } from './types';
+import { ADD_TO_PORTFOLIO, CHANGE_LOADING, CREATE_PORTFOLIO, DELETE_FROM_PORTFOLIO, DELETE_PORTFOLIO, GET_PORTFOLIOS, GET_PORTFOLIO_BY_NAME, SEARCH_TICKER } from './types';
 
 export function createPortfolioAction(name, owner, slug) {
     return async (dispatch) => {
@@ -12,9 +12,21 @@ export function createPortfolioAction(name, owner, slug) {
     }
 }
 
+export function searchTickerAction(ticker) {
+    return async (dispatch) => {
+        try {
+            const data = await portfolioService.searchTicker(ticker)
+            dispatch({type: SEARCH_TICKER, payload: data })
+        } catch (e) {
+            console.log(e)
+        }
+    }
+}
+
 export function addToPortfolioAction(name, owner, stock) {
     return async (dispatch) => {
         try {
+            dispatch({type: CHANGE_LOADING, payload: {}})
             const data = await portfolioService.addToPortfolio(owner, stock, name);
             dispatch({type: ADD_TO_PORTFOLIO, payload: data })
         } catch (e) {
@@ -26,6 +38,7 @@ export function addToPortfolioAction(name, owner, stock) {
 export function deleteFromPortfolioAction(name, owner, stock) {
     return async (dispatch) => {
         try {
+            dispatch({type: CHANGE_LOADING, payload: {}})
             const data = await portfolioService.deleteFromPortfolio(owner, stock, name);
             dispatch({type: DELETE_FROM_PORTFOLIO, payload: data })
         } catch (e) {

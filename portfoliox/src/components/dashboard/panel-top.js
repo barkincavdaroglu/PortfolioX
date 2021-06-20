@@ -1,5 +1,4 @@
 import { ArrowSmDownIcon, ArrowSmUpIcon } from '@heroicons/react/solid';
-import { QuestionMarkCircleIcon } from '@heroicons/react/outline';
 import { XCircleIcon } from '@heroicons/react/outline';
 import { ArrowNarrowLeftIcon, ArrowNarrowRightIcon } from '@heroicons/react/solid'
 import React, { useState, Fragment } from 'react';
@@ -13,10 +12,10 @@ export default function PanelTop() {
         <div>
             <div>
                 <div className="flex flex-row">
-                    <h1 className="text-3xl font-bold text-gray-600">Top Stocks</h1>
+                    <h1 className="text-3xl font-bold text-white">Top Stocks</h1>
                 </div>
                 <div>
-                    <h2 className="text-sm text-gray-500 pt-2 pb-4">
+                    <h2 className="text-sm text-white pt-2 pb-4">
                         Right Now
                     </h2>
                 </div>
@@ -100,7 +99,6 @@ function StocksList() {
               <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
             </Transition.Child>
 
-            {/* This element is to trick the browser into centering the modal contents. */}
             <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
               &#8203;
             </span>

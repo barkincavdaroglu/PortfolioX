@@ -1,4 +1,4 @@
-import { ADD_TO_PORTFOLIO, CREATE_PORTFOLIO, DELETE_FROM_PORTFOLIO, DELETE_PORTFOLIO, GET_PORTFOLIOS, GET_PORTFOLIO_BY_NAME } from '../actions/types';
+import { ADD_TO_PORTFOLIO, CHANGE_LOADING, CREATE_PORTFOLIO, DELETE_FROM_PORTFOLIO, DELETE_PORTFOLIO, GET_PORTFOLIOS, GET_PORTFOLIO_BY_NAME } from '../actions/types';
 
 const initialState = {
     loading: true,
@@ -6,6 +6,7 @@ const initialState = {
         portfolios: [],
     },
     currentPortfolioLoading: true,
+    currentPortfolioActionsLoading: false,
     currentPortfolio: {
         dailyGain: { total: 0, percent: 0 },
         totalGain: { total: 0, percent: 0 },
@@ -30,6 +31,12 @@ export default function portfolioReducer(state = initialState, action) {
                   portfolios: state.userPortfolios.portfolios.concat(portfolio),
               },
               currentPortfolio: portfolio,
+          }
+      }
+      case CHANGE_LOADING: {
+          return {
+              ...state,
+              currentPortfolioActionsLoading: true
           }
       }
       case DELETE_PORTFOLIO: {
@@ -57,6 +64,7 @@ export default function portfolioReducer(state = initialState, action) {
           return {
               ...state,
               currentPortfolio: portfolio,
+              currentPortfolioActionsLoading: false,
           }
       }
       case DELETE_FROM_PORTFOLIO: {
@@ -65,6 +73,7 @@ export default function portfolioReducer(state = initialState, action) {
           return {
               ...state,
               currentPortfolio: portfolio,
+              currentPortfolioActionsLoading: false,
           }
       }
       case GET_PORTFOLIO_BY_NAME: {
