@@ -79,5 +79,4 @@ export default function PortfolioDetailed(props) {
             </div>
         )
     }
-
 }

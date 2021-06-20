@@ -1,11 +1,33 @@
-import { GET_ERRORS } from "../actions/types";
+import { LOGIN_ERROR, REGISTER_ERROR } from "../actions/types";
 
-const initialState = {};
+const initialState = {
+  loginError: {},
+  isLoginError: false,
+  registerError: {},
+  isRegisterError: false,
+};
 
 export default function errorReducer(state = initialState, action) {
-  switch (action.type) {
-    case GET_ERRORS:
-      return action.payload;
+  const { type, payload } = action;
+  switch (type) {
+    case LOGIN_ERROR: {
+      return {
+        ...state,
+        loginError: payload,
+        registerError: {},
+        isRegisterError: false,
+        isLoginError: true,
+      }
+    }
+    case REGISTER_ERROR: {
+      return {
+        ...state,
+        registerError: payload,
+        loginError: {},
+        isRegisterError: true,
+        isLoginError: false,
+      }
+    }
     default:
       return state;
   }
