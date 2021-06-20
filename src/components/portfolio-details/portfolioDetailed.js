@@ -34,13 +34,14 @@ export default function PortfolioDetailed(props) {
     let slug = useParams();
     let history = useHistory();
     
-    function getPortfolioByName() {
-        dispatch(getNewsAction());
-        dispatch(getPortfolioByNameAction(owner, slug.name))
-    }
     useEffect(() => {
+        function getPortfolioByName() {
+            dispatch(getNewsAction());
+            dispatch(getPortfolioByNameAction(owner, slug.name))
+        }
+
         getPortfolioByName();
-    }, []); 
+    }, [dispatch, owner, slug.name]); //eslint
 
     if (!loading && !newsLoading) {
         return (
