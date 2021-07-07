@@ -1,6 +1,7 @@
 export const GET_ERRORS = "GET_ERRORS";
 export const USER_LOADING = "USER_LOADING";
 export const SET_CURRENT_USER = "SET_CURRENT_USER";
+export const USER_REGISTERED = "USER_REGISTERED";
 
 export const LOGIN_ERROR = "LOGIN_ERROR";
 export const REGISTER_ERROR = "REGISTER_ERROR";

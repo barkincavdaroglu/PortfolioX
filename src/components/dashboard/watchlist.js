@@ -58,10 +58,7 @@ export default function WatchList() {
     }
 
     function addToWatchList() {
-       if (!ticker) {
-           console.log('required')
-       }
-       else {
+       if (ticker) {
            dispatch(addToWatchlistAction(owner, ticker));
            setCreateNew(false);
            setTicker('');

@@ -3,7 +3,7 @@ const SERVER_ENDPOINTS = {
     DEV: 'https://xfolio-app.herokuapp.com',
 }
 
-const API_URL = SERVER_ENDPOINTS.DEV
+const API_URL = SERVER_ENDPOINTS.LOCAL
 
 export {
     API_URL,

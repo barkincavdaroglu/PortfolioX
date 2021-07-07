@@ -1,4 +1,4 @@
-import { SET_CURRENT_USER, USER_LOADING, LOGIN_ERROR, REGISTER_ERROR, DISABLE_ERRORS } from "../actions/types";
+import { SET_CURRENT_USER, USER_LOADING, LOGIN_ERROR, REGISTER_ERROR, DISABLE_ERRORS, USER_REGISTERED } from "../actions/types";
 
 const isEmpty = require("is-empty");
 
@@ -10,6 +10,7 @@ const initialState = {
     isLoginError: false,
     registerError: {},
     isRegisterError: false,
+    isRegistered: false
 };
   
 export default function authReducer(state = initialState, action) {
@@ -23,6 +24,12 @@ export default function authReducer(state = initialState, action) {
         isLoginError: false,
         isRegisterError: false,
     };
+    case USER_REGISTERED:
+      return {
+        ...state,
+        isRegisterError: false,
+        isRegistered: true,
+      }
     case USER_LOADING:
       return {
         ...state,
@@ -45,6 +52,7 @@ export default function authReducer(state = initialState, action) {
         loginError: {},
         isRegisterError: true,
         isLoginError: false,
+        isRegistered: false,
       }
     case DISABLE_ERRORS:
       return {

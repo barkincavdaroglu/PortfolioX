@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { XCircleIcon } from '@heroicons/react/outline';
-import { registerUserAction } from "../actions/authActions";
+import { loginUser, registerUserAction } from "../actions/authActions";
 import { useHistory } from 'react-router-dom'
 
 function Register() {
@@ -18,8 +18,13 @@ function Register() {
   const isRegisterError = useSelector(state => state.auth.isRegisterError)
   const registerErrorMessage = useSelector(state => state.auth.registerError)
   const [passwordMatch, setPasswordMatch] = useState(true)
+
   if (User.isAuthenticated) {
       return <Redirect to='/dashboard' />
+  }
+
+  if (User.isRegistered) {
+      return <Redirect to='/login' />
   }
 
   const tryRegister = () => {
@@ -29,6 +34,7 @@ function Register() {
           email: email,
           password: password
       }
+
       if (name && email && password && (password === confirmPassword)) {
         setPasswordMatch(true)
         dispatch(registerUserAction(User))

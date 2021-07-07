@@ -1,6 +1,6 @@
 import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
-import { LOGIN_ERROR, REGISTER_ERROR, SET_CURRENT_USER, USER_LOADING } from "./types";
+import { LOGIN_ERROR, REGISTER_ERROR, SET_CURRENT_USER, USER_LOADING, USER_REGISTERED } from "./types";
 import * as loginService from '../services/auth';
 
 // Register User
@@ -8,6 +8,7 @@ export function registerUserAction(userData) {
   return async (dispatch) => {
     try {
       await loginService.registerUserService(userData);
+      dispatch({type: USER_REGISTERED})
     } catch (e) {
       dispatch({ type: REGISTER_ERROR, payload: e.response.data.error })
     }
