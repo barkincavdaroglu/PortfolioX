@@ -57,7 +57,7 @@ export default function NewsPanel() {
                                     <div className="pt-2 flex flex-row justify-between items-center">
                                         <div className="flex flex-row items-center">
                                             <h1>Related: </h1>
-                                            <h1 className="font-medium ml-4 text-indigo-500 text-base">{truncate(news.news[0].related, 25)}</h1>
+                                            <h1 className="font-medium ml-4 text-indigo-500 text-base">{truncate(news.news[0].related, 20)}</h1>
                                         </div>
                                         <Link to={{ pathname: news.news[0].url }} target="_blank"> 
                                             <button type="button" className="inline-flex items-center px-2.5 py-1.5 border border-gray-300  text-xs font-normal rounded text-gray-500 bg-white focus:outline-none hover:bg-indigo-500 hover:text-white">
