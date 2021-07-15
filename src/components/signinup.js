@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { XCircleIcon } from '@heroicons/react/outline';
-import { loginUser, registerUserAction } from "../actions/authActions";
+import { registerUserAction } from "../actions/authActions";
 import { useHistory } from 'react-router-dom'
 
 function Register() {
@@ -173,7 +173,7 @@ function Register() {
                   onClick={tryRegister}
                   className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
-                  Sign in
+                  Sign Up
                 </button>
             </div>
 
